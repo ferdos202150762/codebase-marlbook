@@ -33,7 +33,7 @@ grid-search:
 
   env.time_limit: 49
   env.name:
-    - lbforaging:Foraging-20x20-12p-6f-v2
+    - lbforaging:Foraging-fixed-20x20-12p-6f-v2
 
 grid-search-groups:
   alg0:
