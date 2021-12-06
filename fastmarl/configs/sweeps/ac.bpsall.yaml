@@ -20,8 +20,15 @@ grid-search:
     - 0.1
     - 0.01
 
-  env.name: pressureplate:pressureplate-linear-4p-v0
-  env.time_limit: 100
+  env.name:
+    - pettingzoo:pz-mpe-large-spread-v1
+    - pettingzoo:pz-mpe-large-spread-v2
+    - pettingzoo:pz-mpe-large-spread-v3
+    - pettingzoo:pz-mpe-large-spread-v4
+    - pettingzoo:pz-mpe-large-spread-v5
+    - pettingzoo:pz-mpe-large-spread-v6
+    - pettingzoo:pz-mpe-large-spread-v6
+  env.time_limit: 50
 
 grid-search-groups:
   alg0:

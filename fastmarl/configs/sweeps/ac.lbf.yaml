@@ -20,8 +20,8 @@ grid-search:
     - 0.1
     - 0.01
 
-  env.name: pressureplate:pressureplate-linear-4p-v0
-  env.time_limit: 100
+  env.name: lbforaging:Foraging-fixed-20x20-12p-6f-v2
+  env.time_limit: 49
 
 grid-search-groups:
   alg0:
