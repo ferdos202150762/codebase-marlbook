@@ -1,0 +1,43 @@
+exclude: null
+grid-search:
+
+  "+algorithm": "vdn"
+
+  algorithm.total_steps: 2_000_000
+  algorithm.log_interval: 10_000
+  algorithm.save_interval: False
+  algorithm.eval_interval: 10_000
+  algorithm.eval_episodes: 10
+  algorithm.video_interval: False
+
+  algorithm.lr:
+    - 0.0003
+
+  algorithm.standarize_returns:
+    - True
+
+
+  algorithm.target_update_interval_or_tau:
+    - 200
+    - 0.01
+
+  algorithm.eps_decay:
+    - 2.0
+    - 4.0
+    - 6.0
+    # - 10.0
+
+  algorithm.batch_size:
+    - 128
+    - 256
+
+  env.name: rware-2color-tiny4-ag-hard-v1
+  env.time_limit: 500
+
+grid-search-groups:
+  alg0:
+    - algorithm.name: "VDN-NoPS"
+    - algorithm.model.critic.parameter_sharing: False
+  alg1:
+    - algorithm.name: "VDN-FuPS"
+    - algorithm.model.critic.parameter_sharing: True
