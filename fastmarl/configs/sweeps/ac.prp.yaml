@@ -1,0 +1,70 @@
+exclude: null
+grid-search:
+
+  "+algorithm": "ac"
+
+  algorithm.total_steps: 50_000
+  algorithm.eval_interval: 1_000
+  algorithm.video_frames: 100
+  algorithm.entropy_coef:
+    - 0.001
+    - 0.01
+    - 0.1
+
+  algorithm.standarize_returns:
+    - True
+    - False
+    -
+  algorithm.grad_clip:
+    - 0.5
+    - 0.1
+    - 0.01
+
+  algorithm.model.critic.centralised:
+    - True
+    - False
+
+  env.name: pressureplate:pressureplate-linear-4p-v0
+  env.time_limit: 100
+
+grid-search-groups:
+  alg0:
+    - algorithm.name: "AC-NoPS-CC"
+    - algorithm.model.critic.centralised: True
+    - algorithm.model.critic.parameter_sharing: False
+    - algorithm.model.actor.parameter_sharing: False
+  alg2:
+    - algorithm.name: "AC-NoPS"
+    - algorithm.model.critic.centralised: False
+    - algorithm.model.critic.parameter_sharing: False
+    - algorithm.model.actor.parameter_sharing: False
+  alg3:
+    - algorithm.name: "AC-FuPSCritic-CC"
+    - algorithm.model.critic.centralised: True
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: False
+  alg4:
+    - algorithm.name: "AC-FuPSCritic"
+    - algorithm.model.critic.centralised: False
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: False
+  alg5:
+    - algorithm.name: "AC-FuPSActor-CC"
+    - algorithm.model.critic.centralised: True
+    - algorithm.model.critic.parameter_sharing: False
+    - algorithm.model.actor.parameter_sharing: True
+  alg6:
+    - algorithm.name: "AC-FuPSActor"
+    - algorithm.model.critic.centralised: False
+    - algorithm.model.critic.parameter_sharing: False
+    - algorithm.model.actor.parameter_sharing: True
+  alg7:
+    - algorithm.name: "AC-FuPS-CC"
+    - algorithm.model.critic.centralised: True
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: True
+  alg8:
+    - algorithm.name: "AC-FuPS"
+    - algorithm.model.critic.centralised: False
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: True
