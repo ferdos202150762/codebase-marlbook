@@ -1,7 +1,9 @@
-<h1><b>Fast</b> iteration of <b>MARL</b> research ideas: A starting point for Multi-Agent Reinforcement Learning</h1>
+<h1><b>FAST</b> iteration of <b>MARL</b> research ideas: A starting point for Multi-Agent Reinforcement Learning</h1>
 
 Algorithm implementations with emphasis on ***FAST*** iteration of ***MARL*** research ideas.
 The algorithms are self-contained and the implementations are focusing on simplicity and speed.
+
+All algorithms are implemented in _PyTorch_ and use the _Gym_ interface.
 
 <h1>Table of Contents</h1>
 
@@ -12,8 +14,8 @@ The algorithms are self-contained and the implementations are focusing on simpli
   - [Running a hyperparameter search](#running-a-hyperparameter-search)
     - [An advanced hyperparameter search using `search.py`](#an-advanced-hyperparameter-search-using-searchpy)
   - [Logging](#logging)
-    - [File System Logger:](#file-system-logger)
-    - [WandB Logger:](#wandb-logger)
+    - [File System Logger](#file-system-logger)
+    - [WandB Logger](#wandb-logger)
 - [Implementing your own algorithm/ideas](#implementing-your-own-algorithmideas)
 - [Interpreting your results](#interpreting-your-results)
 - [Implemented Algorithms](#implemented-algorithms)
@@ -94,9 +96,9 @@ Where `$TASK_ID` is an index for the experiment (i.e. 1...#number of experiments
 ## Logging
 We implement two loggers: FileSystem Logger and WandB Logger.
 
-### File System Logger:
+### File System Logger
 The default logger is the FileSystemLogger which saves experiment results in a `results.csv` file. You can find that file, the configuration that has been used & more under `outputs/{env_name}/{alg_name}/{random_hash}` or `multirun/{date}/{time}/{experiment_id}` for multiruns.
-### WandB Logger:
+### WandB Logger
 By appending `+logger=wandb` in the command line you can get support for WandB. Do not forget to `wandb login` first.
 
 Example:
@@ -150,6 +152,63 @@ You can now add new hyperparameters, change the training procedure, or anything 
 
 # Interpreting your results
 
+We have multiple tools to analyze the outputs of FileSystemLogger (for WandBLogger, just login to their webpage).
+First, export the data of multiple runs using:
+```sh
+python utils/postprocessing/export_multirun.py --folder folder/containing/results --export-file myfile.hd5
+```
+
+The file will contain two pandas DataFrames: `df` which contains all `mean_episode_returns` (by default summed across all agents), and `config` which contains information about the tested hyperparameters.  
+You can load both through Python using:
+```python
+import pandas as pd
+df = pd.read_hdf(exported_file, "df")
+configs = pd.read_hdf(exported_file, "configs")
+```
+The imported DataFrames look like the ones below. `df` has a multi-index column indexing the environment name, the algorithm name, a hash unique to the parameter search, and a seed. `configs` maps the hash to the full configuration of the run.
+
+```ipython
+In [1]: df
+Out[2]: 
+                       Foraging-20x20-9p-6f-v2             ...                       
+                                       Algo1               ...     Algo2             
+                                   f7c2ecb3ddf1            ... 5284ad99ce02          
+                                         seed=0    seed=1  ...       seed=0    seed=1
+environment_steps                                          ...                       
+0                                      0.178373  0.000000  ...     0.089167  0.054286
+100000                                 0.026786  0.066667  ...     0.054545  0.033333
+200000                                 0.130278  0.084650  ...     0.043333  0.055833
+300000                                 0.086111  0.109975  ...     0.182626  0.116768
+...
+
+In [3]: configs
+Out[4]: 
+             algorithm.name  algorithm.lr  algorithm.batch_size
+f7c2ecb3ddf1       DQN-FuPS        0.0001                   256
+ecaf120f572e       DQN-SePS        0.0001                   128
+5a80fe220cfc       DQN-SePS        0.0003                   128
+d16939a558b6       DQN-FuPS        0.0003                   256
+...
+```
+
+You can easily find the best hyperparameter configuration per environment/algorithm using: 
+```sh
+python utils/postprocessing/find_best_hyperparams.py  --exported-file myfile.hd5
+```
+
+You can plot the best runs (average/std across seeds) using:
+```sh
+python utils/postprocessing/plot_best_runs.py --exported-file lbf.dqn.hd5
+```
+
+Finally you can use [HiPlot](https://github.com/facebookresearch/hiplot) to interactively visualize the performance of various hyperparameter configurations using:
+```sh 
+pip install -U hiplot
+hiplot fastmarl.utils.postprocessing.hiplot_fetcher.experiment_fetcher
+```
+You will have to enter `exp://myfile.hd5/env_name/alg_name` in the browser's textbox.
+
+
 # Implemented Algorithms
 
 |                             | A2C                | DQN (Double Q)     |
@@ -163,7 +222,32 @@ You can now add new hyperparameters, change the training procedure, or anything 
 
 
 ## Parameter Sharing
+
+Parameter sharing across agents is optional and being done behind the scenes in the torch model.
+There are three types of parameter sharing:
+- No Parameter Sharing (default)
+- Full Parameter Sharing
+- Selective Parameter Sharing ([Christianos et al.](https://arxiv.org/pdf/2102.07475.pdf))
+
+In DQN you can enable either of these using:
+```sh
+python run.py +algorithm=dqn env.name="lbforaging:Foraging-8x8-4p-3f-v2" env.time_limit=25 algorithm.model.critic.parameter_sharing=False
+python run.py +algorithm=dqn env.name="lbforaging:Foraging-8x8-4p-3f-v2" env.time_limit=25 algorithm.model.critic.parameter_sharing=True
+python run.py +algorithm=dqn env.name="lbforaging:Foraging-8x8-4p-3f-v2" env.time_limit=25 algorithm.model.critic.parameter_sharing=[0,0,1,1]
+```
+for each of the methods respectively. For Selective Parameter Sharing, you need to supply a list of indices pointing to the network that is going to be used for each agent. Example: `[0,0,1,1]` as above makes the agents `0` and `1` share network `0` and agents `2` and `3` share the network `1`. Similarly `[0,1,1,1]` would make the first agent not share parameters with anyone, and the other three would share parameters.
+
+In Actor-Critic methods you would need to seperately define parameter sharing for the Actor and the Critic. The respective config is `algorithm.model.actor.parameter_sharing=...` and `algorithm.model.critic.parameter_sharing=...`
 ## Value Decomposition
+
+We have implemented VDN on top of the DQN algorithm. To use you only have to load the respective algorithm config:
+
+```sh
+python run.py +algorithm=vdn env.name="lbforaging:Foraging-8x8-4p-3f-v2" env.time_limit=25
+```
+
+Note that for this to work we use the `CooperativeReward` wrapper that _sums_ the rewards of all agents before feeding them to the training algorithm. If you have an environment that already has a cooperative reward, you still need it to return a *list of rewards* (e.g. `reward = n_agents * [reward/n_agents]`).
+
 
 # Contact
 Filippos Christianos - f.christianos {at} ed {dot} ac {dot} uk
