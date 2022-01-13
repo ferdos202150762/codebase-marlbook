@@ -85,7 +85,7 @@ hparam-tuples-0:
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1]"
 
-hparam-tuples-0:
+hparam-tuples-1:
   - !!python/tuple 
     - algorithm.name: "AC-NoPS"
     - "+algorithm": "ac"
