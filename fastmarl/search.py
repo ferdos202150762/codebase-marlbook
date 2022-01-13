@@ -25,7 +25,7 @@ def _flatten_lists(object):
 
 def _seed_and_shuffle(configs, shuffle, seeds):
 
-    configs = [[f"hypergroup=hp_grp_{i}"] + c for i, c in enumerate(configs)]
+    configs = [[f"+hypergroup=hp_grp_{i}"] + c for i, c in enumerate(configs)]
     configs = list(product(configs, [f"seed={i}" for i in range(seeds)]))
     configs = [list(_flatten_lists(c)) for c in configs]
 
