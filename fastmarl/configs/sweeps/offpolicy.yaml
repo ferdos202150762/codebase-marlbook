@@ -1,7 +1,5 @@
 # constants
-algorithm.log_interval: 10_000
 algorithm.save_interval: False
-algorithm.eval_interval: 10_000
 algorithm.eval_episodes: 10
 algorithm.video_interval: False
 
@@ -25,41 +23,56 @@ hparam-tuples-0:
     - env.name: lbforaging:Foraging-fixed-20x20-12p-6f-v2
     - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3]"
     - algorithm.total_steps: 1_500_000
+    - algorithm.log_interval: 10_000
+    - algorithm.eval_interval: 10_000
 
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v1
     - algorithm.total_steps: 20_000
+    - algorithm.log_interval: 1_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
 
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v2
     - algorithm.total_steps: 20_000
+    - algorithm.log_interval: 1_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2]"
 
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v3
     - algorithm.total_steps: 20_000
+    - algorithm.log_interval: 1_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
 
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v4
     - algorithm.total_steps: 20_000
+    - algorithm.log_interval: 1_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4]"
 
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v5
     - algorithm.total_steps: 20_000
+    - algorithm.log_interval: 1_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
 
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v6
     - algorithm.total_steps: 20_000
+    - algorithm.log_interval: 10_000
+    - algorithm.eval_interval: 10_000
+
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
 
 hparam-tuples-1:

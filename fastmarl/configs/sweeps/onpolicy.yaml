@@ -1,4 +1,3 @@
-algorithm.eval_interval: 10_000
 algorithm.video_frames: 100
 algorithm.entropy_coef:
   - 0.001
@@ -20,11 +19,13 @@ hparam-tuples-0:
     - env.name: lbforaging:Foraging-fixed-20x20-12p-6f-v2
     - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3]"
+    - algorithm.eval_interval: 10_000
     - algorithm.total_steps: 2_000_000
 
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v1
+    - algorithm.eval_interval: 1_000
     - algorithm.total_steps: 20_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
@@ -32,6 +33,7 @@ hparam-tuples-0:
   - !!python/tuple
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v2
+    - algorithm.eval_interval: 1_000
     - algorithm.total_steps: 20_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2]"
@@ -40,6 +42,7 @@ hparam-tuples-0:
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v3
     - algorithm.total_steps: 20_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
 
@@ -47,6 +50,7 @@ hparam-tuples-0:
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v4
     - algorithm.total_steps: 20_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4]"
 
@@ -54,6 +58,7 @@ hparam-tuples-0:
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v5
     - algorithm.total_steps: 20_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
 
@@ -61,12 +66,14 @@ hparam-tuples-0:
     - env.time_limit: 50
     - env.name: pettingzoo:pz-mpe-large-spread-v6
     - algorithm.total_steps: 20_000
+    - algorithm.eval_interval: 1_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
 
   - !!python/tuple
     - env.time_limit: 500
     - env.name: rware:rware-2color-tiny-4ag-hard-v1
+    - algorithm.eval_interval: 10_000
     - algorithm.total_steps: 1_500_000
     - algorithm.model.critic.parameter_sharing: "[0,0,1,1]"
     - algorithm.model.actor.parameter_sharing: "[0,0,1,1]"
@@ -74,6 +81,7 @@ hparam-tuples-0:
   - !!python/tuple
     - env.time_limit: 500
     - env.name: rware:rware-2color-small-8ag-v1
+    - algorithm.eval_interval: 10_000
     - algorithm.total_steps: 2_000_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,1,1,1,1]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,1,1,1,1]"
@@ -81,6 +89,7 @@ hparam-tuples-0:
   - !!python/tuple
     - env.time_limit: 500
     - env.name: rware:rware-2color-medium-16ag-v1
+    - algorithm.eval_interval: 10_000
     - algorithm.total_steps: 2_000_000
     - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1]"
     - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1]"
