@@ -1,0 +1,8 @@
+# @package _global_
+
+defaults:
+  - ac
+
+algorithm.name: "maac"
+
+algorithm.model.critic.centralised: True

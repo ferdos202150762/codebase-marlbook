@@ -1,0 +1,133 @@
+algorithm.eval_interval: 10_000
+algorithm.video_frames: 100
+algorithm.entropy_coef:
+  - 0.001
+  - 0.01
+  - 0.1
+
+algorithm.standarize_returns:
+  - True
+  - False
+
+algorithm.grad_clip:
+  - 0.5
+  - 0.1
+  - 0.01
+
+hparam-tuples-0:
+  - !!python/tuple
+    - env.time_limit: 49
+    - env.name: lbforaging:Foraging-fixed-20x20-12p-6f-v2
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3]"
+    - algorithm.total_steps: 2_000_000
+
+  - !!python/tuple
+    - env.time_limit: 50
+    - env.name: pettingzoo:pz-mpe-large-spread-v1
+    - algorithm.total_steps: 20_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
+
+  - !!python/tuple
+    - env.time_limit: 50
+    - env.name: pettingzoo:pz-mpe-large-spread-v2
+    - algorithm.total_steps: 20_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2]"
+
+  - !!python/tuple
+    - env.time_limit: 50
+    - env.name: pettingzoo:pz-mpe-large-spread-v3
+    - algorithm.total_steps: 20_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
+
+  - !!python/tuple
+    - env.time_limit: 50
+    - env.name: pettingzoo:pz-mpe-large-spread-v4
+    - algorithm.total_steps: 20_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4]"
+
+  - !!python/tuple
+    - env.time_limit: 50
+    - env.name: pettingzoo:pz-mpe-large-spread-v5
+    - algorithm.total_steps: 20_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2]"
+
+  - !!python/tuple
+    - env.time_limit: 50
+    - env.name: pettingzoo:pz-mpe-large-spread-v6
+    - algorithm.total_steps: 20_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4]"
+
+  - !!python/tuple
+    - env.time_limit: 500
+    - env.name: rware:rware-2color-tiny-4ag-hard-v1
+    - algorithm.total_steps: 1_500_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,1,1]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,1,1]"
+
+  - !!python/tuple
+    - env.time_limit: 500
+    - env.name: rware:rware-2color-small-8ag-v1
+    - algorithm.total_steps: 2_000_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,0,1,1,1,1]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,0,1,1,1,1]"
+
+  - !!python/tuple
+    - env.time_limit: 500
+    - env.name: rware:rware-2color-medium-16ag-v1
+    - algorithm.total_steps: 2_000_000
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1]"
+    - algorithm.model.actor.parameter_sharing: "[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1]"
+
+hparam-tuples-0:
+  - !!python/tuple 
+    - algorithm.name: "AC-NoPS"
+    - "+algorithm": "ac"
+    - algorithm.model.critic.parameter_sharing: False
+    - algorithm.model.actor.parameter_sharing: False
+
+  - !!python/tuple 
+    - algorithm.name: "AC-FuPS"
+    - "+algorithm": "ac"
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: True
+
+  - !!python/tuple 
+    - algorithm.name: "AC-FuPS+id"
+    - "+algorithm": "ac"
+    - env.observe_id: True
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: True
+
+  - !!python/tuple 
+    - algorithm.name: "AC-SePS"
+    - "+algorithm": "ac"
+
+  - !!python/tuple 
+    - algorithm.name: "MAA2C-NoPS"
+    - "+algorithm": "maac"
+    - algorithm.model.critic.parameter_sharing: False
+    - algorithm.model.actor.parameter_sharing: False
+
+  - !!python/tuple 
+    - algorithm.name: "MAA2C-FuPS"
+    - "+algorithm": "maac"
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: True
+
+  - !!python/tuple 
+    - algorithm.name: "MAA2C-FuPS+id"
+    - "+algorithm": "maac"
+    - env.observe_id: True
+    - algorithm.model.critic.parameter_sharing: True
+    - algorithm.model.actor.parameter_sharing: True
+
+  - !!python/tuple 
+    - algorithm.name: "MAAC-SePS"
+    - "+algorithm": "maac"
