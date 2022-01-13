@@ -1,0 +1,54 @@
+# constants
+algorithm.total_steps: 2_000_000
+algorithm.log_interval: 10_000
+algorithm.save_interval: False
+algorithm.eval_interval: 10_000
+algorithm.eval_episodes: 10
+algorithm.video_interval: False
+
+env.name: lbforaging:Foraging-fixed-20x20-12p-6f-v2
+env.time_limit: 49
+
+# top-level choice (grid) search
+algorithm.standarize_returns: True
+algorithm.lr: 0.0003
+
+
+algorithm.eps_decay:
+  - 2.0
+  - 4.0
+  - 6.0
+
+algorithm.batch_size:
+  - 128
+  - 256
+
+env.time_limit: 49
+env.name: lbforaging:Foraging-fixed-20x20-12p-6f-v2
+
+hparam-tuples-0:
+  - !!python/tuple 
+    - algorithm.name: "DQN-NoPS"
+    - "+algorithm": "dqn"
+    - algorithm.model.critic.parameter_sharing: False
+  - !!python/tuple 
+    - algorithm.name: "DQN-FuPS"
+    - "+algorithm": "dqn"
+    - algorithm.model.critic.parameter_sharing: True
+  - !!python/tuple 
+    - algorithm.name: "DQN-SePS"
+    - "+algorithm": "dqn"
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3]"
+  - !!python/tuple 
+    - algorithm.name: "VDN-NoPS"
+    - "+algorithm": "vdn"
+    - algorithm.model.critic.parameter_sharing: False
+  - !!python/tuple 
+    - algorithm.name: "VDN-FuPS"
+    - "+algorithm": "vdn"
+    - algorithm.model.critic.parameter_sharing: True
+  - !!python/tuple 
+    - algorithm.name: "VDN-SePS"
+    - "+algorithm": "vdn"
+    - algorithm.model.critic.parameter_sharing: "[0,0,0,1,1,1,2,2,2,3,3,3]"
+
