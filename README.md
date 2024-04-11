@@ -51,7 +51,6 @@ We *strongly* suggest you use a virtual environment for the instructions below. 
 
 ```sh
 git clone https://github.com/semitable/fast-marl.git
-cd fast-marl
 pip install -r requirements.txt
 pip install -e .
 ```
